@@ -1,4 +1,4 @@
-package ru.krasin.TestAppSpringBoot.hello;
+package ru.krasin.MyFirstTestAppSpringBootApplication.hello;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,18 +11,20 @@ import java.util.Map;
 
 @RestController
 public class HelloController {
-    private List<String> stringList = new ArrayList<>();
-    private Map<String, String> stringMap = new HashMap<>();
-
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
         return String.format("Hello %s!", name);
     }
+    private List<String> stringList = new ArrayList<>();
+    private Map<String, String> stringMap = new HashMap<>();
 
     @GetMapping("/update-array")
-    public String updateArrayList(@RequestParam String s) {
+    public String updateArrayList(@RequestParam("s") String s) {
+        if (stringList.isEmpty()) {
+            stringList = new ArrayList<>();
+        }
         stringList.add(s);
-        return "Value added to ArrayList.";
+        return "Value added to ArrayList: " + s;
     }
 
     @GetMapping("/show-array")
@@ -31,9 +33,12 @@ public class HelloController {
     }
 
     @GetMapping("/update-map")
-    public String updateHashMap(@RequestParam String key, @RequestParam String value) {
-        stringMap.put(key, value);
-        return "Value added to HashMap.";
+    public String updateHashMap(@RequestParam("s") String s) {
+        if (stringMap.isEmpty()) {
+            stringMap = new HashMap<>();
+        }
+        stringMap.put(String.valueOf(stringMap.size() + 1), s);
+        return "Value added to HashMap: " + s;
     }
 
     @GetMapping("/show-map")
@@ -43,8 +48,9 @@ public class HelloController {
 
     @GetMapping("/show-all-length")
     public String showAllLength() {
-        int listSize = stringList.size();
-        int mapSize = stringMap.size();
-        return "ArrayList Length: " + listSize + "<br>HashMap Size: " + mapSize;
+        int arrayListSize = stringList.size();
+        int hashMapSize = stringMap.size();
+        return "ArrayList  " + arrayListSize + " , HashMap  " + hashMapSize + " .";
     }
 }
+

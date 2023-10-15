@@ -1,10 +1,10 @@
-package ru.krasin.TestAppSpringBoot;
+package ru.krasin.MyFirstTestAppSpringBootApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TestAppSpringBootApplicationTests {
+class MyFirstTestAppSpringBootApplicationTests {
 
 	@Test
 	void contextLoads() {
